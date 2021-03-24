@@ -1,0 +1,459 @@
+mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("ea24db6d-5c96-4c4c-a55e-fe03e8a2f8a9") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2021-03-24T08:52:05.869+0530 I STORAGE  [initandlisten] 
+2021-03-24T08:52:05.869+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2021-03-24T08:52:05.869+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2021-03-24T08:52:10.005+0530 I CONTROL  [initandlisten] 
+2021-03-24T08:52:10.006+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2021-03-24T08:52:10.006+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2021-03-24T08:52:10.006+0530 I CONTROL  [initandlisten] 
+> use company
+switched to db company
+> db.empdetails.insertMany([{ _id:1, fname:"abc",lname:"def",age:34,email:"abcdef@gmail.com",phn:11111,exp:10},{ _id:2,fname:"fgh",lname:"ghi",age:29,email:"fghghi@gmail.com",phn:22222,exp:6},{ _id:3,fname:"hjk",lname:"dfg",age:10,email:"hjkdfg@gmail.com",exp:1},{ _id:4,fname:"abc",lname:"dsd",age:18,email:"abcdsd@gmail.com",phn:44444,exp:3},{ _id:5,fname:"xyz",lname:"bnm",age:21,email:"xyzbnm@gmail.com",phn:55555,exp:5},{ _id:6,fname:"wer",lname:"def",age:16,email:"werdef@gmail.com",exp:4},{ _id:7,fname:"kol",lname:"in",age:23,email:"kolin@gmail.com",phn:77777,exp:7},{ _id:8,fname:"abc",lname:"bnm",age:16,email:"abcbnm@gmail.com",exp:0},{ _id:9,fname:"aws",lname:"web",age:25,email:"awsweb@gmail.com",phn:99999,exp:9},{ _id:10,fname:"hjk",lname:"dsd",age:19,email:"hjkdsd@gmail.com",exp:6}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		1,
+		2,
+		3,
+		4,
+		5,
+		6,
+		7,
+		8,
+		9,
+		10
+	]
+}
+> db.empdetails.find().pretty()
+{
+	"_id" : 1,
+	"fname" : "abc",
+	"lname" : "def",
+	"age" : 34,
+	"email" : "abcdef@gmail.com",
+	"phn" : 11111,
+	"exp" : 10
+}
+{
+	"_id" : 2,
+	"fname" : "fgh",
+	"lname" : "ghi",
+	"age" : 29,
+	"email" : "fghghi@gmail.com",
+	"phn" : 22222,
+	"exp" : 6
+}
+{
+	"_id" : 3,
+	"fname" : "hjk",
+	"lname" : "dfg",
+	"age" : 10,
+	"email" : "hjkdfg@gmail.com",
+	"exp" : 1
+}
+{
+	"_id" : 4,
+	"fname" : "abc",
+	"lname" : "dsd",
+	"age" : 18,
+	"email" : "abcdsd@gmail.com",
+	"phn" : 44444,
+	"exp" : 3
+}
+{
+	"_id" : 5,
+	"fname" : "xyz",
+	"lname" : "bnm",
+	"age" : 21,
+	"email" : "xyzbnm@gmail.com",
+	"phn" : 55555,
+	"exp" : 5
+}
+{
+	"_id" : 6,
+	"fname" : "wer",
+	"lname" : "def",
+	"age" : 16,
+	"email" : "werdef@gmail.com",
+	"exp" : 4
+}
+{
+	"_id" : 7,
+	"fname" : "kol",
+	"lname" : "in",
+	"age" : 23,
+	"email" : "kolin@gmail.com",
+	"phn" : 77777,
+	"exp" : 7
+}
+{
+	"_id" : 8,
+	"fname" : "abc",
+	"lname" : "bnm",
+	"age" : 16,
+	"email" : "abcbnm@gmail.com",
+	"exp" : 0
+}
+{
+	"_id" : 9,
+	"fname" : "aws",
+	"lname" : "web",
+	"age" : 25,
+	"email" : "awsweb@gmail.com",
+	"phn" : 99999,
+	"exp" : 9
+}
+{
+	"_id" : 10,
+	"fname" : "hjk",
+	"lname" : "dsd",
+	"age" : 19,
+	"email" : "hjkdsd@gmail.com",
+	"exp" : 6
+}
+> db.createCollection("test")
+{
+	"ok" : 0,
+	"errmsg" : "a collection 'company.test' already exists",
+	"code" : 48,
+	"codeName" : "NamespaceExists"
+}
+> show collections
+EmployeeDetails
+empdetails
+test
+> db.test.drop()
+true
+> db.EmployeeDetails.drop()
+true
+> db.createCollection("test")
+{ "ok" : 1 }
+> db.test.insertMany([{ _id:1, fname:"abc",lname:"def",age:34,email:"abcdef@gmail.com",phn:11111,exp:10},{ _id:2,fname:"fgh",lname:"ghi",age:29,email:"fghghi@gmail.com",phn:22222,exp:6},{ _id:3,fname:"hjk",lname:"dfg",age:10,email:"hjkdfg@gmail.com",exp:1},{ _id:6,fname:"wer",lname:"def",age:16,email:"werdef@gmail.com",exp:4},{ _id:7,fname:"kol",lname:"in",age:23,email:"kolin@gmail.com",phn:77777,exp:7},{ _id:8,fname:"abc",lname:"bnm",age:16,email:"abcbnm@gmail.com",exp:0},{ _id:9,fname:"aws",lname:"web",age:25,email:"awsweb@gmail.com",phn:99999,exp:9},{ _id:10,fname:"hjk",lname:"dsd",age:19,email:"hjkdsd@gmail.com",exp:6}
+... ])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		1,
+		2,
+		3,
+		6,
+		7,
+		8,
+		9,
+		10
+	]
+}
+> db.test.find.pretty()
+2021-03-24T10:23:47.156+0530 E QUERY    [thread1] TypeError: db.test.find.pretty is not a function :
+@(shell):1:1
+> db.test.find().pretty()
+{
+	"_id" : 1,
+	"fname" : "abc",
+	"lname" : "def",
+	"age" : 34,
+	"email" : "abcdef@gmail.com",
+	"phn" : 11111,
+	"exp" : 10
+}
+{
+	"_id" : 2,
+	"fname" : "fgh",
+	"lname" : "ghi",
+	"age" : 29,
+	"email" : "fghghi@gmail.com",
+	"phn" : 22222,
+	"exp" : 6
+}
+{
+	"_id" : 3,
+	"fname" : "hjk",
+	"lname" : "dfg",
+	"age" : 10,
+	"email" : "hjkdfg@gmail.com",
+	"exp" : 1
+}
+{
+	"_id" : 6,
+	"fname" : "wer",
+	"lname" : "def",
+	"age" : 16,
+	"email" : "werdef@gmail.com",
+	"exp" : 4
+}
+{
+	"_id" : 7,
+	"fname" : "kol",
+	"lname" : "in",
+	"age" : 23,
+	"email" : "kolin@gmail.com",
+	"phn" : 77777,
+	"exp" : 7
+}
+{
+	"_id" : 8,
+	"fname" : "abc",
+	"lname" : "bnm",
+	"age" : 16,
+	"email" : "abcbnm@gmail.com",
+	"exp" : 0
+}
+{
+	"_id" : 9,
+	"fname" : "aws",
+	"lname" : "web",
+	"age" : 25,
+	"email" : "awsweb@gmail.com",
+	"phn" : 99999,
+	"exp" : 9
+}
+{
+	"_id" : 10,
+	"fname" : "hjk",
+	"lname" : "dsd",
+	"age" : 19,
+	"email" : "hjkdsd@gmail.com",
+	"exp" : 6
+}
+> db.test.drop()
+true
+> db.empdetails.find().pretty()
+{
+	"_id" : 1,
+	"fname" : "abc",
+	"lname" : "def",
+	"age" : 34,
+	"email" : "abcdef@gmail.com",
+	"phn" : 11111,
+	"exp" : 10
+}
+{
+	"_id" : 2,
+	"fname" : "fgh",
+	"lname" : "ghi",
+	"age" : 29,
+	"email" : "fghghi@gmail.com",
+	"phn" : 22222,
+	"exp" : 6
+}
+{
+	"_id" : 3,
+	"fname" : "hjk",
+	"lname" : "dfg",
+	"age" : 10,
+	"email" : "hjkdfg@gmail.com",
+	"exp" : 1
+}
+{
+	"_id" : 4,
+	"fname" : "abc",
+	"lname" : "dsd",
+	"age" : 18,
+	"email" : "abcdsd@gmail.com",
+	"phn" : 44444,
+	"exp" : 3
+}
+{
+	"_id" : 5,
+	"fname" : "xyz",
+	"lname" : "bnm",
+	"age" : 21,
+	"email" : "xyzbnm@gmail.com",
+	"phn" : 55555,
+	"exp" : 5
+}
+{
+	"_id" : 6,
+	"fname" : "wer",
+	"lname" : "def",
+	"age" : 16,
+	"email" : "werdef@gmail.com",
+	"exp" : 4
+}
+{
+	"_id" : 7,
+	"fname" : "kol",
+	"lname" : "in",
+	"age" : 23,
+	"email" : "kolin@gmail.com",
+	"phn" : 77777,
+	"exp" : 7
+}
+{
+	"_id" : 8,
+	"fname" : "abc",
+	"lname" : "bnm",
+	"age" : 16,
+	"email" : "abcbnm@gmail.com",
+	"exp" : 0
+}
+{
+	"_id" : 9,
+	"fname" : "aws",
+	"lname" : "web",
+	"age" : 25,
+	"email" : "awsweb@gmail.com",
+	"phn" : 99999,
+	"exp" : 9
+}
+{
+	"_id" : 10,
+	"fname" : "hjk",
+	"lname" : "dsd",
+	"age" : 19,
+	"email" : "hjkdsd@gmail.com",
+	"exp" : 6
+}
+> db.empdetails.save({_id:10,fname:"abc",lname:"dgh"})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.empdetails.find().pretty()
+{
+	"_id" : 1,
+	"fname" : "abc",
+	"lname" : "def",
+	"age" : 34,
+	"email" : "abcdef@gmail.com",
+	"phn" : 11111,
+	"exp" : 10
+}
+{
+	"_id" : 2,
+	"fname" : "fgh",
+	"lname" : "ghi",
+	"age" : 29,
+	"email" : "fghghi@gmail.com",
+	"phn" : 22222,
+	"exp" : 6
+}
+{
+	"_id" : 3,
+	"fname" : "hjk",
+	"lname" : "dfg",
+	"age" : 10,
+	"email" : "hjkdfg@gmail.com",
+	"exp" : 1
+}
+{
+	"_id" : 4,
+	"fname" : "abc",
+	"lname" : "dsd",
+	"age" : 18,
+	"email" : "abcdsd@gmail.com",
+	"phn" : 44444,
+	"exp" : 3
+}
+{
+	"_id" : 5,
+	"fname" : "xyz",
+	"lname" : "bnm",
+	"age" : 21,
+	"email" : "xyzbnm@gmail.com",
+	"phn" : 55555,
+	"exp" : 5
+}
+{
+	"_id" : 6,
+	"fname" : "wer",
+	"lname" : "def",
+	"age" : 16,
+	"email" : "werdef@gmail.com",
+	"exp" : 4
+}
+{
+	"_id" : 7,
+	"fname" : "kol",
+	"lname" : "in",
+	"age" : 23,
+	"email" : "kolin@gmail.com",
+	"phn" : 77777,
+	"exp" : 7
+}
+{
+	"_id" : 8,
+	"fname" : "abc",
+	"lname" : "bnm",
+	"age" : 16,
+	"email" : "abcbnm@gmail.com",
+	"exp" : 0
+}
+{
+	"_id" : 9,
+	"fname" : "aws",
+	"lname" : "web",
+	"age" : 25,
+	"email" : "awsweb@gmail.com",
+	"phn" : 99999,
+	"exp" : 9
+}
+{ "_id" : 10, "fname" : "abc", "lname" : "dgh" }
+> db.empdetails.find({fname:"abc"}).pretty()
+{
+	"_id" : 1,
+	"fname" : "abc",
+	"lname" : "def",
+	"age" : 34,
+	"email" : "abcdef@gmail.com",
+	"phn" : 11111,
+	"exp" : 10
+}
+{
+	"_id" : 4,
+	"fname" : "abc",
+	"lname" : "dsd",
+	"age" : 18,
+	"email" : "abcdsd@gmail.com",
+	"phn" : 44444,
+	"exp" : 3
+}
+{
+	"_id" : 8,
+	"fname" : "abc",
+	"lname" : "bnm",
+	"age" : 16,
+	"email" : "abcbnm@gmail.com",
+	"exp" : 0
+}
+{ "_id" : 10, "fname" : "abc", "lname" : "dgh" }
+> db.empdetails.find({$and:[{lname:bnm},{exp:5}]})
+2021-03-24T10:28:34.332+0530 E QUERY    [thread1] ReferenceError: bnm is not defined :
+@(shell):1:28
+> db.empdetails.find({$and:[{lname:"bnm"},{exp:5}]})
+{ "_id" : 5, "fname" : "xyz", "lname" : "bnm", "age" : 21, "email" : "xyzbnm@gmail.com", "phn" : 55555, "exp" : 5 }
+> db.empdetails.find({$or:[{exp:5},{exp:6}]})
+{ "_id" : 2, "fname" : "fgh", "lname" : "ghi", "age" : 29, "email" : "fghghi@gmail.com", "phn" : 22222, "exp" : 6 }
+{ "_id" : 5, "fname" : "xyz", "lname" : "bnm", "age" : 21, "email" : "xyzbnm@gmail.com", "phn" : 55555, "exp" : 5 }
+> db.empdetails.find({age:{$not:{$gt:25}}})
+{ "_id" : 3, "fname" : "hjk", "lname" : "dfg", "age" : 10, "email" : "hjkdfg@gmail.com", "exp" : 1 }
+{ "_id" : 4, "fname" : "abc", "lname" : "dsd", "age" : 18, "email" : "abcdsd@gmail.com", "phn" : 44444, "exp" : 3 }
+{ "_id" : 5, "fname" : "xyz", "lname" : "bnm", "age" : 21, "email" : "xyzbnm@gmail.com", "phn" : 55555, "exp" : 5 }
+{ "_id" : 6, "fname" : "wer", "lname" : "def", "age" : 16, "email" : "werdef@gmail.com", "exp" : 4 }
+{ "_id" : 7, "fname" : "kol", "lname" : "in", "age" : 23, "email" : "kolin@gmail.com", "phn" : 77777, "exp" : 7 }
+{ "_id" : 8, "fname" : "abc", "lname" : "bnm", "age" : 16, "email" : "abcbnm@gmail.com", "exp" : 0 }
+{ "_id" : 9, "fname" : "aws", "lname" : "web", "age" : 25, "email" : "awsweb@gmail.com", "phn" : 99999, "exp" : 9 }
+{ "_id" : 10, "fname" : "abc", "lname" : "dgh" }
+> db.empdetails.find({age:{$ne:20}})
+{ "_id" : 1, "fname" : "abc", "lname" : "def", "age" : 34, "email" : "abcdef@gmail.com", "phn" : 11111, "exp" : 10 }
+{ "_id" : 2, "fname" : "fgh", "lname" : "ghi", "age" : 29, "email" : "fghghi@gmail.com", "phn" : 22222, "exp" : 6 }
+{ "_id" : 3, "fname" : "hjk", "lname" : "dfg", "age" : 10, "email" : "hjkdfg@gmail.com", "exp" : 1 }
+{ "_id" : 4, "fname" : "abc", "lname" : "dsd", "age" : 18, "email" : "abcdsd@gmail.com", "phn" : 44444, "exp" : 3 }
+{ "_id" : 5, "fname" : "xyz", "lname" : "bnm", "age" : 21, "email" : "xyzbnm@gmail.com", "phn" : 55555, "exp" : 5 }
+{ "_id" : 6, "fname" : "wer", "lname" : "def", "age" : 16, "email" : "werdef@gmail.com", "exp" : 4 }
+{ "_id" : 7, "fname" : "kol", "lname" : "in", "age" : 23, "email" : "kolin@gmail.com", "phn" : 77777, "exp" : 7 }
+{ "_id" : 8, "fname" : "abc", "lname" : "bnm", "age" : 16, "email" : "abcbnm@gmail.com", "exp" : 0 }
+{ "_id" : 9, "fname" : "aws", "lname" : "web", "age" : 25, "email" : "awsweb@gmail.com", "phn" : 99999, "exp" : 9 }
+{ "_id" : 10, "fname" : "abc", "lname" : "dgh" }
+> db.empdetails.find({age:{$lte:20}})
+{ "_id" : 3, "fname" : "hjk", "lname" : "dfg", "age" : 10, "email" : "hjkdfg@gmail.com", "exp" : 1 }
+{ "_id" : 4, "fname" : "abc", "lname" : "dsd", "age" : 18, "email" : "abcdsd@gmail.com", "phn" : 44444, "exp" : 3 }
+{ "_id" : 6, "fname" : "wer", "lname" : "def", "age" : 16, "email" : "werdef@gmail.com", "exp" : 4 }
+{ "_id" : 8, "fname" : "abc", "lname" : "bnm", "age" : 16, "email" : "abcbnm@gmail.com", "exp" : 0 }
+> db.empdetails.find({_id:1})
+{ "_id" : 1, "fname" : "abc", "lname" : "def", "age" : 34, "email" : "abcdef@gmail.com", "phn" : 11111, "exp" : 10 }
+> 
+
+
