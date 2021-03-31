@@ -1,0 +1,155 @@
+				MONGO-DB COMPASS
+Display  details of collection employee-details in Company
+
+{
+	"_id" : 1,
+	"fname" : "abc",
+	"lname" : "def",
+	"age" : 34,
+	"email" : "abcdef@gmail.com",
+	"phn" : 11111,
+	"exp" : 10
+}
+{
+	"_id" : 2,
+	"fname" : "fgh",
+	"lname" : "ghi",
+	"age" : 29,
+	"email" : "fghghi@gmail.com",
+	"phn" : 22222,
+	"exp" : 6
+}
+{
+	"_id" : 3,
+	"fname" : "hjk",
+	"lname" : "dfg",
+	"age" : 10,
+	"email" : "hjkdfg@gmail.com",
+	"exp" : 1
+}
+{
+	"_id" : 4,
+	"fname" : "abc",
+	"lname" : "dsd",
+	"age" : 18,
+	"email" : "abcdsd@gmail.com",
+	"phn" : 44444,
+	"exp" : 3
+}
+{
+	"_id" : 5,
+	"fname" : "xyz",
+	"lname" : "bnm",
+	"age" : 21,
+	"email" : "xyzbnm@gmail.com",
+	"phn" : 55555,
+	"exp" : 5
+}
+{
+	"_id" : 6,
+	"fname" : "wer",
+	"lname" : "def",
+	"age" : 16,
+	"email" : "werdef@gmail.com",
+	"exp" : 4
+}
+{
+	"_id" : 7,
+	"fname" : "kol",
+	"lname" : "in",
+	"age" : 23,
+	"email" : "kolin@gmail.com",
+	"phn" : 77777,
+	"exp" : 7
+}
+{
+	"_id" : 8,
+	"fname" : "abc",
+	"lname" : "bnm",
+	"age" : 16,
+	"email" : "abcbnm@gmail.com",
+	"exp" : 0
+}
+{
+	"_id" : 9,
+	"fname" : "aws",
+	"lname" : "web",
+	"age" : 25,
+	"email" : "awsweb@gmail.com",
+	"phn" : 99999,
+	"exp" : 9
+}
+{
+	"_id" : 10,
+	"fname" : "hjk",
+	"lname" : "dsd",
+	"age" : 19,
+	"email" : "hjkdsd@gmail.com",
+	"exp" : 6
+}
+
+1.  filter: {  fname: 'abc' }
+	{"_id":1,"fname":"abc","lname":"def","age":34,"email":"abcdef@gmail.com","phn":11111,"exp":10}
+	{"_id":4,"fname":"abc","lname":"dsd","age":18,"email":"abcdsd@gmail.com","phn":44444,"exp":3}
+	{"_id":8,"fname":"abc","lname":"bnm","age":16,"email":"abcbnm@gmail.com","phn":88888,"exp":0}
+	
+2.  filter: {  $and: [{lname: 'bnm'},{exp: 5}]}
+	{"_id":5,"fname":"xyz","lname":"bnm","age":21,"email":"xyzbnm@gmail.com","phn":55555,"exp":5}
+	
+3.  filter: {  $or: [{exp: 5 }, {  exp: 6  }]}
+	{"_id":2,"fname":"fgh","lname":"ghi","age":29,"email":"fghghi@gmail.com","phn":22222,"exp":6}
+	{"_id":5,"fname":"xyz","lname":"bnm","age":21,"email":"xyzbnm@gmail.com","phn":55555,"exp":5}
+	{"_id":10,"fname":"hjk","lname":"dsd","age":19,"email":"hjkdsd@gmail.com","phn":10000,"exp":6}
+	
+4.  filter: {  age: { $not: {  $gt: 25 } }}
+	{"_id":3,"fname":"hjk","lname":"dfg","age":10,"email":"hjkdfg@gmail.com","phn":33333,"exp":1}
+	{"_id":4,"fname":"abc","lname":"dsd","age":18,"email":"abcdsd@gmail.com","phn":44444,"exp":3}
+	{"_id":5,"fname":"xyz","lname":"bnm","age":21,"email":"xyzbnm@gmail.com","phn":55555,"exp":5}
+	{"_id":6,"fname":"wer","lname":"def","age":16,"email":"werdef@gmail.com","phn":66666,"exp":4}
+	{"_id":7,"fname":"kol","lname":"in","age":23,"email":"kolin@gmail.com","phn":77777,"exp":7}
+	{"_id":8,"fname":"abc","lname":"bnm","age":16,"email":"abcbnm@gmail.com","phn":88888,"exp":0}
+	{"_id":9,"fname":"aws","lname":"web","age":25,"email":"awsweb@gmail.com","phn":99999,"exp":9}
+	{"_id":10,"fname":"hjk","lname":"dsd","age":19,"email":"hjkdsd@gmail.com","phn":10000,"exp":6}	
+	
+5.  filter: {  age: {  $ne: 25 }}
+	{"_id":1,"fname":"abc","lname":"def","age":34,"email":"abcdef@gmail.com","phn":11111,"exp":10}
+	{"_id":2,"fname":"fgh","lname":"ghi","age":29,"email":"fghghi@gmail.com","phn":22222,"exp":6}
+	{"_id":3,"fname":"hjk","lname":"dfg","age":10,"email":"hjkdfg@gmail.com","phn":33333,"exp":1}
+	{"_id":4,"fname":"abc","lname":"dsd","age":18,"email":"abcdsd@gmail.com","phn":44444,"exp":3}
+	{"_id":5,"fname":"xyz","lname":"bnm","age":21,"email":"xyzbnm@gmail.com","phn":55555,"exp":5}
+	{"_id":6,"fname":"wer","lname":"def","age":16,"email":"werdef@gmail.com","phn":66666,"exp":4}
+	{"_id":7,"fname":"kol","lname":"in","age":23,"email":"kolin@gmail.com","phn":77777,"exp":7}
+	{"_id":8,"fname":"abc","lname":"bnm","age":16,"email":"abcbnm@gmail.com","phn":88888,"exp":0}
+	{"_id":10,"fname":"hjk","lname":"dsd","age":19,"email":"hjkdsd@gmail.com","phn":10000,"exp":6}
+
+6.  filter: {  age: {  $lte: 20 }}
+	{"_id":3,"fname":"hjk","lname":"dfg","age":10,"email":"hjkdfg@gmail.com","phn":33333,"exp":1}
+	{"_id":4,"fname":"abc","lname":"dsd","age":18,"email":"abcdsd@gmail.com","phn":44444,"exp":3}
+	{"_id":6,"fname":"wer","lname":"def","age":16,"email":"werdef@gmail.com","phn":66666,"exp":4}
+	{"_id":8,"fname":"abc","lname":"bnm","age":16,"email":"abcbnm@gmail.com","phn":88888,"exp":0}
+	{"_id":10,"fname":"hjk","lname":"dsd","age":19,"email":"hjkdsd@gmail.com","phn":10000,"exp":6}
+
+7.  filter: { _id: {  $ne: 1  }}
+	{"_id":2,"fname":"fgh","lname":"ghi","age":29,"email":"fghghi@gmail.com","phn":22222,"exp":6}
+	{"_id":3,"fname":"hjk","lname":"dfg","age":10,"email":"hjkdfg@gmail.com","phn":33333,"exp":1}
+	{"_id":4,"fname":"abc","lname":"dsd","age":18,"email":"abcdsd@gmail.com","phn":44444,"exp":3}
+	{"_id":5,"fname":"xyz","lname":"bnm","age":21,"email":"xyzbnm@gmail.com","phn":55555,"exp":5}
+	{"_id":6,"fname":"wer","lname":"def","age":16,"email":"werdef@gmail.com","phn":66666,"exp":4}
+	{"_id":7,"fname":"kol","lname":"in","age":23,"email":"kolin@gmail.com","phn":77777,"exp":7}
+	{"_id":8,"fname":"abc","lname":"bnm","age":16,"email":"abcbnm@gmail.com","phn":88888,"exp":0}
+	{"_id":9,"fname":"aws","lname":"web","age":25,"email":"awsweb@gmail.com","phn":99999,"exp":9}
+	{"_id":10,"fname":"hjk","lname":"dsd","age":19,"email":"hjkdsd@gmail.com","phn":10000,"exp":6}
+	
+8. match-AGE-25
+	{
+    "_id": 9,
+    "fname": "aws",
+    "lname": "web",
+    "age": 25,
+    "email": "awsweb@gmail.com",
+    "phn": 99999,
+    "exp": 9
+}
+
+9. 
+
