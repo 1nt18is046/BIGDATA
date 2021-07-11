@@ -1,0 +1,27 @@
+NAME : Chinmai Srivastava
+USN : 1NT18IS046
+
+
+hadoop@hadoop-VirtualBox:~$ cd /home
+hadoop@hadoop-VirtualBox:/home$ sudo gedit chinmai_1NT18IS046.TXT
+[sudo] password for hadoop: 
+
+(gedit:4788): Tepl-WARNING **: 21:35:19.460: GVfs metadata is not supported. Fallback to TeplMetadataManager. Either GVfs is not correctly installed or GVfs metadata are not supported on this platform. In the latter case, you should configure Tepl with --disable-gvfs-metadata.
+hadoop@hadoop-VirtualBox:/home$ sudo gedit 1NT18IS046.txt
+
+(gedit:4801): Tepl-WARNING **: 21:35:59.931: GVfs metadata is not supported. Fallback to TeplMetadataManager. Either GVfs is not correctly installed or GVfs metadata are not supported on this platform. In the latter case, you should configure Tepl with --disable-gvfs-metadata.
+hadoop@hadoop-VirtualBox:/home$ 
+hadoop@hadoop-VirtualBox:/home$ 
+hadoop@hadoop-VirtualBox:/home$ pwd
+/home
+hadoop@hadoop-VirtualBox:/home$ pwd
+/home
+hadoop@hadoop-VirtualBox:/home$ ls
+1NT18IS046.txt  chinmai_1NT18IS046.txt  hadoop  hdoop
+hadoop@hadoop-VirtualBox:/home$ ^C
+hadoop@hadoop-VirtualBox:/home$ sudo gedit chinmai_1NT18IS046.txt
+[sudo] password for hadoop: 
+
+(gedit:5878): Tepl-WARNING **: 22:05:16.354: GVfs metadata is not supported. Fallback to TeplMetadataManager. Either GVfs is not correctly installed or GVfs metadata are not supported on this platform. In the latter case, you should configure Tepl with --disable-gvfs-metadata.
+hadoop@hadoop-VirtualBox:/home$ 
+
