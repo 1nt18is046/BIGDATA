@@ -1,0 +1,156 @@
+LAB 3
+
+Date : 5th April,2021
+
+
+admin1@Admin:~$ mongo
+MongoDB shell version v4.4.4
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("2c864dde-e00b-4837-bbaf-be6104ba16b1") }
+MongoDB server version: 4.4.4
+---
+The server generated these startup warnings when booting: 
+        2021-04-05T08:55:53.185+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2021-04-05T08:55:56.708+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show dbs
+Company  0.000GB
+Emp      0.000GB
+admin    0.000GB
+bank     0.000GB
+college  0.000GB
+config   0.000GB
+local    0.000GB
+newdb    0.000GB
+newdb1   0.000GB
+> use customer
+switched to db customer
+> db.createcollection("customers")
+uncaught exception: TypeError: db.createcollection is not a function :
+@(shell):1:1
+> db.createCollection("customers")
+{ "ok" : 1 }
+> 
+> db.customers.insertMany([{_id:1,cust_id:"a123",amt:500,status:"A"},{_id:2,cust_id:"a123",amt:250,status:"A"},{_id:3,cust_id:"b123",amt:200,status:"A"},{_id:4,cust_id:"a123",amt:300,status:"D"}])
+{ "acknowledged" : true, "insertedIds" : [ 1, 2, 3, 4 ] }
+> 
+
+Q1.)retrieve all the customers whose account status is active(A)
+
+> db.customers.aggregate([{$match:{status:"A"}}])
+{ "_id" : 1, "cust_id" : "a123", "amt" : 500, "status" : "A" }
+{ "_id" : 2, "cust_id" : "a123", "amt" : 250, "status" : "A" }
+{ "_id" : 3, "cust_id" : "b123", "amt" : 200, "status" : "A" }
+> 
+> 
+
+Q2.)retrieve all the customers who has maximum amount in the account
+
+> db.customers.aggregate({$group:{_id:"$cust_id","max_val":{$max:"$amt"}}}])
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:72
+> 
+> 
+> db.customers.aggregate([{$group:{_id:"$cust_id","max_val":{$max:"$amt"}}}])
+{ "_id" : "a123", "max_val" : 500 }
+{ "_id" : "b123", "max_val" : 200 }
+> 
+> 
+> db.customers.aggregate({$group:{_id:"_id","max_val":{$max:"$amt"}}}])
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:67
+> 
+> 
+> db.customers.aggregate([{$group:{_id:"_id","max_val":{$max:"$amt"}}}])
+{ "_id" : "_id", "max_val" : 500 }
+> 
+> 
+
+Q3.)for each customer count the number of account status
+
+> db.customers.aggregate([{$group:{_id:"$cust_id",count:{$sum:1}}}])
+{ "_id" : "a123", "count" : 3 }
+{ "_id" : "b123", "count" : 1 }
+> 
+> 
+
+Q4.)retrieve only the customer id and status fields
+
+> db.customers.aggregate([{$project:{cust_id:1,status:1}}])
+{ "_id" : 1, "cust_id" : "a123", "status" : "A" }
+{ "_id" : 2, "cust_id" : "a123", "status" : "A" }
+{ "_id" : 3, "cust_id" : "b123", "status" : "A" }
+{ "_id" : 4, "cust_id" : "a123", "status" : "D" }
+> 
+> 
+
+Q5.)retrieve the first 3 records from the customer collection
+
+> db.customers.aggregate([{$limit:3}])
+{ "_id" : 1, "cust_id" : "a123", "amt" : 500, "status" : "A" }
+{ "_id" : 2, "cust_id" : "a123", "amt" : 250, "status" : "A" }
+{ "_id" : 3, "cust_id" : "b123", "amt" : 200, "status" : "A" }
+> 
+> 
+> db.customers.aggregate([{$project:{cust_id:1,status:1,_id:0}}])
+{ "cust_id" : "a123", "status" : "A" }
+{ "cust_id" : "a123", "status" : "A" }
+{ "cust_id" : "b123", "status" : "A" }
+{ "cust_id" : "a123", "status" : "D" }
+> 
+>
+
+Q6.)for every customers calculate the sum of amounts.
+
+> db.customers.aggregate([{$group:{_id:"$cust_id",{$sum:"$amt"}}}])
+uncaught exception: SyntaxError: expected property name, got '{' :
+@(shell):1:48
+> 
+> 
+> db.customers.aggregate([{$group:{_id:"$cust_id",sum:{$sum:"$amt"}}}])
+{ "_id" : "b123", "sum" : 200 }
+{ "_id" : "a123", "sum" : 1050 }
+> 
+> 
+> db.customers.aggregate([{$group:{_id:"$cust_id",sum:{$total_amt:"$amt"}}}])
+uncaught exception: Error: command failed: {
+	"ok" : 0,
+	"errmsg" : "unknown group operator '$total_amt'",
+	"code" : 15952,
+	"codeName" : "Location15952"
+} : aggregate failed :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:18:14
+_assertCommandWorked@src/mongo/shell/assert.js:639:17
+assert.commandWorked@src/mongo/shell/assert.js:729:16
+DB.prototype._runAggregate@src/mongo/shell/db.js:266:5
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1058:12
+@(shell):1:1
+> 
+> 
+> db.customers.aggregate([{$group:{_id:"$cust_id",total_amt:{$sum:"$amt"}}}])
+{ "_id" : "a123", "total_amt" : 1050 }
+{ "_id" : "b123", "total_amt" : 200 }
+> 
+> 
+
+Q7.)retrieve all the customers with amount>=300.
+
+
+> db.customers.aggregate([{$match:{amt:{$gte:300}}}])
+{ "_id" : 1, "cust_id" : "a123", "amt" : 500, "status" : "A" }
+{ "_id" : 4, "cust_id" : "a123", "amt" : 300, "status" : "D" }
+> 
+
+
