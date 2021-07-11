@@ -1,0 +1,556 @@
+	 	 	 	
+hive> alter table employee rename to emp;
+OK
+Time taken: 0.422 seconds
+hive> select * from emp;
+OK
+Alok	2309	40000	Bhopal	ISE	4
+Chavi	4597	50000	Ludhiana	CSE	3
+Avani	9743	55000	Bareily	ECE	6
+Shikha	5567	60000	Bangalore	AE	2
+Aastha	6779	70000	Mumbai	ISE	3
+Harsha	5000	30000	Bangalore	ISE	3
+Anjali	7890	40000	Pune	CSE	4
+Soumya	1233	20000	Delhi	EEE	4
+Shreni	3455	43000	Mumbai	AE	3
+Shubha	3214	60000	Kanpur	ISE	2
+Chinmai	5643	90000	Bangalore	ISE	3
+Yash	2654	20000	Goa	EEE	5
+Amit	6753	25000	Shimla	ECE	6
+Rajshree	6785	30000	Delhi	CSE	7
+Mahati	3478	35000	Srinagar	EEE	4
+Nishtha	2367	40000	Punjab	ME	3
+Asima	6789	45000	Bangalore	ECE	2
+Bhavi	1123	80000	Bangalore	ECE	4
+Sukanya	1435	55000	Orissa	CSE	6
+Revathi	4356	50000	Kerela	CSE	7
+Tapasya	1113	60000	Cochin	EEE	4
+Bhairavi	3452	44000	Bangalore	ISE	5
+Ahmed	1561	20000	Kanpur	ME	3
+Anisha	1169	45000	Pune	ISE	2
+Anil	3467	70000	Mumbai	ECE	5
+Milind	6547	50000	Bangalore	ISE	5
+Natasha	5893	45000	Pune	ME	3
+Jayesh	9076	56000	Himachal	CSE	4
+Aman	5792	35000	Bangalore	ISE	4
+Birla	8876	30000	Rajasthan	ECE	1
+Time taken: 0.156 seconds, Fetched: 30 row(s)
+hive> alter table emp change dname Dept_name string;
+OK
+Time taken: 0.111 seconds
+hive> desc emp;
+OK
+name 	string 	
+ssn 	int 	
+salary 	int 	
+address 	string 	
+dept_name 	string 	
+experience 	int 	
+Time taken: 0.061 seconds, Fetched: 6 row(s)
+hive> use employeedb1;
+OK
+Time taken: 0.631 seconds
+hive> select * from emp
+> where salary >= 50000;
+OK
+Chavi	4597	50000	Ludhiana	CSE	3
+Avani	9743	55000	Bareily	ECE	6
+Shikha	5567	60000	Bangalore	AE	2
+Aastha	6779	70000	Mumbai	ISE	3
+Shubha	3214	60000	Kanpur	ISE	2
+Chinmai	5643	90000	Bangalore	ISE	3
+Bhavi	1123	80000	Bangalore	ECE	4
+Sukanya	1435	55000	Orissa	CSE	6
+Revathi	4356	50000	Kerela	CSE	7
+Tapasya	1113	60000	Cochin	EEE	4
+Anil	3467	70000	Mumbai	ECE	5
+Milind	6547	50000	Bangalore	ISE	5
+Jayesh	9076	56000	Himachal	CSE	4
+Time taken: 2.546 seconds, Fetched: 13 row(s)
+hive> select * from emp
+> where address = "Bangalore" and experience < 5;
+OK
+Shikha	5567	60000	Bangalore	AE	2
+Harsha	5000	30000	Bangalore	ISE	3
+Chinmai	5643	90000	Bangalore	ISE	3
+Asima	6789	45000	Bangalore	ECE	2
+Bhavi	1123	80000	Bangalore	ECE	4
+Aman	5792	35000	Bangalore	ISE	4
+Time taken: 0.242 seconds, Fetched: 6 row(s)
+hive> select * from emp
+> select MAX(salary), MIN(salary), AVG(salary)
+> from emp;
+FAILED: ParseException line 2:0 missing EOF at 'select' near 'emp'
+hive> select MAX(salary), MIN(salary), AVG(salary)
+> from emp;
+Query ID = hadoop_20210711020057_ae357225-63bb-4695-a6a6-eacad14c418f
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2021-07-11 02:01:00,408 Stage-1 map = 100%, reduce = 100%
+Ended Job = job_local1086894420_0001
+MapReduce Jobs Launched:
+Stage-Stage-1: HDFS Read: 5652 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+90000	20000	46433.333333333336
+Time taken: 2.615 seconds, Fetched: 1 row(s)
+hive> select * from emp_dept_view;
+OK
+Alok	ISE
+Chavi	CSE
+Avani	ECE
+Shikha	AE
+Aastha	ISE
+Harsha	ISE
+Anjali	CSE
+Soumya	EEE
+Shreni	AE
+Shubha	ISE
+Chinmai	ISE
+Yash	EEE
+Amit	ECE
+Rajshree	CSE
+Mahati	EEE
+Nishtha	ME
+Asima	ECE
+Bhavi	ECE
+Sukanya	CSE
+Revathi	CSE
+Tapasya	EEE
+Bhairavi	ISE
+Ahmed	ME
+Anisha	ISE
+Anil	ECE
+Milind	ISE
+Natasha	ME
+Jayesh	CSE
+Aman	ISE
+Birla	ECE
+Time taken: 0.24 seconds, Fetched: 30 row(s)
+hive> select name,ssn from emp
+> group by ssn,name
+> order by name;
+Query ID = hadoop_20210711020415_cb17384e-efda-4a95-acf4-a068d00b594a
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2021-07-11 02:04:17,321 Stage-1 map = 100%, reduce = 100%
+Ended Job = job_local800287868_0002
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2021-07-11 02:04:18,759 Stage-2 map = 100%, reduce = 100%
+Ended Job = job_local11457819_0003
+MapReduce Jobs Launched:
+Stage-Stage-1: HDFS Read: 9420 HDFS Write: 0 SUCCESS
+Stage-Stage-2: HDFS Read: 9420 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Aastha	6779
+Ahmed	1561
+Alok	2309
+Aman	5792
+Amit	6753
+Anil	3467
+Anisha	1169
+Anjali	7890
+Asima	6789
+Avani	9743
+Bhairavi	3452
+Bhavi	1123
+Birla	8876
+Chavi	4597
+Chinmai	5643
+Harsha	5000
+Jayesh	9076
+Mahati	3478
+Milind	6547
+Natasha	5893
+Nishtha	2367
+Rajshree	6785
+Revathi	4356
+Shikha	5567
+Shreni	3455
+Shubha	3214
+Soumya	1233
+Sukanya	1435
+Tapasya	1113
+Yash	2654
+Time taken: 3.197 seconds, Fetched: 30 row(s)
+hive> create table department(Dno int, Dname string)
+> row format delimited
+> fields terminated by ",";
+OK
+Time taken: 0.882 seconds
+hive> show tables;
+OK
+department
+emp
+emp_dept_view
+Time taken: 0.024 seconds, Fetched: 3 row(s)
+hive> desc emp;
+OK
+name 	string 	
+ssn 	int 	
+salary 	int 	
+address 	string 	
+dept_name 	string 	
+experience 	int 	
+Time taken: 0.072 seconds, Fetched: 6 row(s)
+hive> desc department;
+OK
+dno 	int 	
+dname 	string 	
+Time taken: 0.065 seconds, Fetched: 2 row(s)
+hive> select * from emp;
+OK
+Alok	2309	40000	Bhopal	ISE	4
+Chavi	4597	50000	Ludhiana	CSE	3
+Avani	9743	55000	Bareily	ECE	6
+Shikha	5567	60000	Bangalore	AE	2
+Aastha	6779	70000	Mumbai	ISE	3
+Harsha	5000	30000	Bangalore	ISE	3
+Anjali	7890	40000	Pune	CSE	4
+Soumya	1233	20000	Delhi	EEE	4
+Shreni	3455	43000	Mumbai	AE	3
+Shubha	3214	60000	Kanpur	ISE	2
+Chinmai	5643	90000	Bangalore	ISE	3
+Yash	2654	20000	Goa	EEE	5
+Amit	6753	25000	Shimla	ECE	6
+Rajshree	6785	30000	Delhi	CSE	7
+Mahati	3478	35000	Srinagar	EEE	4
+Nishtha	2367	40000	Punjab	ME	3
+Asima	6789	45000	Bangalore	ECE	2
+Bhavi	1123	80000	Bangalore	ECE	4
+Sukanya	1435	55000	Orissa	CSE	6
+Revathi	4356	50000	Kerela	CSE	7
+Tapasya	1113	60000	Cochin	EEE	4
+Bhairavi	3452	44000	Bangalore	ISE	5
+Ahmed	1561	20000	Kanpur	ME	3
+Anisha	1169	45000	Pune	ISE	2
+Anil	3467	70000	Mumbai	ECE	5
+Milind	6547	50000	Bangalore	ISE	5
+Natasha	5893	45000	Pune	ME	3
+Jayesh	9076	56000	Himachal	CSE	4
+Aman	5792	35000	Bangalore	ISE	4
+Birla	8876	30000	Rajasthan	ECE	1
+Time taken: 0.181 seconds, Fetched: 30 row(s)
+hive> insert into department values(1 , "ISE"),
+> (2 , "CSE"),
+> (3 , "EEE"),
+> (4 , "AE"),
+> (5 , "ECE"),
+> (6 , "ME");
+Query ID = hadoop_20210711013004_11b4d23c-78d0-4ae9-8a01-4a0de7b8f291
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2021-07-11 01:30:07,952 Stage-1 map = 0%, reduce = 0%
+2021-07-11 01:30:10,067 Stage-1 map = 100%, reduce = 0%
+2021-07-11 01:30:11,074 Stage-1 map = 100%, reduce = 100%
+Ended Job = job_local1305943994_0001
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://localhost:9000/user/hive/warehouse/employeedb1.db/department/.hive-staging_hive_2021-07-11_01-30-04_086_1571155617471068810-1/-ext-10000
+Loading data to table employeedb1.department
+MapReduce Jobs Launched:
+Stage-Stage-1: HDFS Read: 6234 HDFS Write: 224 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 7.448 seconds
+hive> select * from department;
+OK
+1	ISE
+2	CSE
+3	EEE
+4	AE
+5	ECE
+6	ME
+Time taken: 0.139 seconds, Fetched: 6 row(s)
+hive> desc emp;
+OK
+name 	string 	
+ssn 	int 	
+salary 	int 	
+address 	string 	
+dept_name 	string 	
+experience 	int 	
+Time taken: 0.046 seconds, Fetched: 6 row(s)
+hive> desc department;
+OK
+dno 	int 	
+dname 	string 	
+Time taken: 0.048 seconds, Fetched: 2 row(s)
+hive> select e.name,e.ssn,e.salary,e.dept_name
+> from emp e left outer join
+> department d on(e.dept_name=d.dname);
+Query ID = hadoop_20210711014038_7c8ec247-e4c2-47f2-a105-2e1b325a5573
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2021-07-11 01:40:49,629 Stage-3 map = 100%, reduce = 0%
+Ended Job = job_local1156508776_0002
+MapReduce Jobs Launched:
+Stage-Stage-3: HDFS Read: 4171 HDFS Write: 112 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Alok	2309	40000	ISE
+Chavi	4597	50000	CSE
+Avani	9743	55000	ECE
+Shikha	5567	60000	AE
+Aastha	6779	70000	ISE
+Harsha	5000	30000	ISE
+Anjali	7890	40000	CSE
+Soumya	1233	20000	EEE
+Shreni	3455	43000	AE
+Shubha	3214	60000	ISE
+Chinmai	5643	90000	ISE
+Yash	2654	20000	EEE
+Amit	6753	25000	ECE
+Rajshree	6785	30000	CSE
+Mahati	3478	35000	EEE
+Nishtha	2367	40000	ME
+Asima	6789	45000	ECE
+Bhavi	1123	80000	ECE
+Sukanya	1435	55000	CSE
+Revathi	4356	50000	CSE
+Tapasya	1113	60000	EEE
+Bhairavi	3452	44000	ISE
+Ahmed	1561	20000	ME
+Anisha	1169	45000	ISE
+Anil	3467	70000	ECE
+Milind	6547	50000	ISE
+Natasha	5893	45000	ME
+Jayesh	9076	56000	CSE
+Aman	5792	35000	ISE
+Birla	8876	30000	ECE
+Time taken: 11.292 seconds, Fetched: 30 row(s)
+hive> select d.dno,e.name,e.ssn,e.salary,e.dept_name
+> from emp e left outer join
+> department d on(e.dept_name=d.dname);
+Query ID = hadoop_20210711014237_f25339f7-1f81-4a13-b004-a8346bddf263
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2021-07-11 01:42:47,648 Stage-3 map = 100%, reduce = 0%
+Ended Job = job_local1053301417_0003
+MapReduce Jobs Launched:
+Stage-Stage-3: HDFS Read: 5113 HDFS Write: 112 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+1	Alok	2309	40000	ISE
+2	Chavi	4597	50000	CSE
+5	Avani	9743	55000	ECE
+4	Shikha	5567	60000	AE
+1	Aastha	6779	70000	ISE
+1	Harsha	5000	30000	ISE
+2	Anjali	7890	40000	CSE
+3	Soumya	1233	20000	EEE
+4	Shreni	3455	43000	AE
+1	Shubha	3214	60000	ISE
+1	Chinmai	5643	90000	ISE
+3	Yash	2654	20000	EEE
+5	Amit	6753	25000	ECE
+2	Rajshree	6785	30000	CSE
+3	Mahati	3478	35000	EEE
+6	Nishtha	2367	40000	ME
+5	Asima	6789	45000	ECE
+5	Bhavi	1123	80000	ECE
+2	Sukanya	1435	55000	CSE
+2	Revathi	4356	50000	CSE
+3	Tapasya	1113	60000	EEE
+1	Bhairavi	3452	44000	ISE
+6	Ahmed	1561	20000	ME
+1	Anisha	1169	45000	ISE
+5	Anil	3467	70000	ECE
+1	Milind	6547	50000	ISE
+6	Natasha	5893	45000	ME
+2	Jayesh	9076	56000	CSE
+1	Aman	5792	35000	ISE
+5	Birla	8876	30000	ECE
+Time taken: 10.139 seconds, Fetched: 30 row(s)
+hive> select d.dno,e.name,e.ssn,e.salary,e.dept_name
+> from emp e right outer join
+> department d on(e.dept_name=d.dname);
+Query ID = hadoop_20210711014324_a5cb38aa-3eb1-4733-85eb-9b1b91cc440b
+Total jobs = 1
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/hive/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+2021-07-11 01:43:32	Uploaded 1 File to: file:/tmp/hadoop/90b067d6-1433-45a1-8eba-b1cd9561cbc8/hive_2021-07-11_01-43-24_411_2373233684560258417-1/-local-10004/HashTable-Stage-3/MapJoin-mapfile20--.hashtable (901 bytes)2021-07-11 01:43:32	End of local task; Time Taken: 1.268 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2021-07-11 01:43:34,483 Stage-3 map = 100%, reduce = 0%
+Ended Job = job_local1494637769_0004
+MapReduce Jobs Launched:
+Stage-Stage-3: HDFS Read: 5147 HDFS Write: 112 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+1	Alok	2309	40000	ISE
+1	Aastha	6779	70000	ISE
+1	Harsha	5000	30000	ISE
+1	Shubha	3214	60000	ISE
+1	Chinmai	5643	90000	ISE
+1	Bhairavi	3452	44000	ISE
+1	Anisha	1169	45000	ISE
+1	Milind	6547	50000	ISE
+1	Aman	5792	35000	ISE
+2	Chavi	4597	50000	CSE
+2	Anjali	7890	40000	CSE
+2	Rajshree	6785	30000	CSE
+2	Sukanya	1435	55000	CSE
+2	Revathi	4356	50000	CSE
+2	Jayesh	9076	56000	CSE
+3	Soumya	1233	20000	EEE
+3	Yash	2654	20000	EEE
+3	Mahati	3478	35000	EEE
+3	Tapasya	1113	60000	EEE
+4	Shikha	5567	60000	AE
+4	Shreni	3455	43000	AE
+5	Avani	9743	55000	ECE
+5	Amit	6753	25000	ECE
+5	Asima	6789	45000	ECE
+5	Bhavi	1123	80000	ECE
+5	Anil	3467	70000	ECE
+5	Birla	8876	30000	ECE
+6	Nishtha	2367	40000	ME
+6	Ahmed	1561	20000	ME
+6	Natasha	5893	45000	ME
+Time taken: 10.086 seconds, Fetched: 30 row(s)
+hive> select d.dno,e.name,e.ssn,e.salary,e.dept_name
+> from emp e full outer join
+> department d on(e.dept_name=d.dname);
+Query ID = hadoop_20210711014413_b42c8cba-85dc-4484-b4cb-df80c80fc162
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2021-07-11 01:44:14,937 Stage-1 map = 100%, reduce = 100%
+Ended Job = job_local63331570_0005
+MapReduce Jobs Launched:
+Stage-Stage-1: HDFS Read: 18335 HDFS Write: 336 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+4	Shreni	3455	43000	AE
+4	Shikha	5567	60000	AE
+2	Rajshree	6785	30000	CSE
+2	Jayesh	9076	56000	CSE
+2	Anjali	7890	40000	CSE
+2	Chavi	4597	50000	CSE
+2	Revathi	4356	50000	CSE
+2	Sukanya	1435	55000	CSE
+5	Amit	6753	25000	ECE
+5	Asima	6789	45000	ECE
+5	Avani	9743	55000	ECE
+5	Anil	3467	70000	ECE
+5	Bhavi	1123	80000	ECE
+5	Birla	8876	30000	ECE
+3	Mahati	3478	35000	EEE
+3	Tapasya	1113	60000	EEE
+3	Yash	2654	20000	EEE
+3	Soumya	1233	20000	EEE
+1	Aman	5792	35000	ISE
+1	Chinmai	5643	90000	ISE
+1	Shubha	3214	60000	ISE
+1	Alok	2309	40000	ISE
+1	Anisha	1169	45000	ISE
+1	Harsha	5000	30000	ISE
+1	Aastha	6779	70000	ISE
+1	Milind	6547	50000	ISE
+1	Bhairavi	3452	44000	ISE
+6	Ahmed	1561	20000	ME
+6	Natasha	5893	45000	ME
+6	Nishtha	2367	40000	ME
+Time taken: 1.471 seconds, Fetched: 30 row(s)
+hive> select d.dno,e.name,e.ssn,e.salary,e.dept_name
+> from emp e join
+> department d on(e.dept_name=d.dname);
+Query ID = hadoop_20210711014509_7a41db77-aa62-42f7-aca0-3ef8cc63b596
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2021-07-11 01:45:20,328 Stage-3 map = 100%, reduce = 0%
+Ended Job = job_local1328328956_0006
+MapReduce Jobs Launched:
+Stage-Stage-3: HDFS Read: 7065 HDFS Write: 112 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+1	Alok	2309	40000	ISE
+2	Chavi	4597	50000	CSE
+5	Avani	9743	55000	ECE
+4	Shikha	5567	60000	AE
+1	Aastha	6779	70000	ISE
+1	Harsha	5000	30000	ISE
+2	Anjali	7890	40000	CSE
+3	Soumya	1233	20000	EEE
+4	Shreni	3455	43000	AE
+1	Shubha	3214	60000	ISE
+1	Chinmai	5643	90000	ISE
+3	Yash	2654	20000	EEE
+5	Amit	6753	25000	ECE
+2	Rajshree	6785	30000	CSE
+3	Mahati	3478	35000	EEE
+6	Nishtha	2367	40000	ME
+5	Asima	6789	45000	ECE
+5	Bhavi	1123	80000	ECE
+2	Sukanya	1435	55000	CSE
+2	Revathi	4356	50000	CSE
+3	Tapasya	1113	60000	EEE
+1	Bhairavi	3452	44000	ISE
+6	Ahmed	1561	20000	ME
+1	Anisha	1169	45000	ISE
+5	Anil	3467	70000	ECE
+1	Milind	6547	50000	ISE
+6	Natasha	5893	45000	ME
+2	Jayesh	9076	56000	CSE
+1	Aman	5792	35000	ISE
+5	Birla	8876	30000	ECE
+Time taken: 10.727 seconds, Fetched: 30 row(s)
+
